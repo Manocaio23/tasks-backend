@@ -54,6 +54,25 @@ pipeline {
             }
         }
 
+        
+         stage('Deploy em produção') {
+            steps {
+                bat 'docker-compose build'
+                bat 'docker-compose up -d'
+            }
+
     }
+
+     stage('Health Check') {
+            steps {
+                sleep(5)
+                dir('Functional-test') {
+                         bat 'mvn verify -Dit.test=br.ce.wcaquino.tasks.prod.HealthCheckIt'
+                        }
+            }
+        }
 }
+
+    }
+
 
