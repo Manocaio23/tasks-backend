@@ -45,6 +45,15 @@ pipeline {
             }
         }
 
+         stage('Functional Test') {
+            steps {
+                dir('Functional-test') {
+                        git 'https://github.com/Manocaio23/tasks-functional-tests.git'
+                         bat 'mvn test'
+                        }
+            }
+        }
+
     }
 }
 
